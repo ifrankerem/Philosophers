@@ -38,6 +38,7 @@ typedef struct table
 	t_philo			*philo;
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	table_mutex;
+	pthread_mutex_t meal_mutex;
 	bool			is_philos_ready;
 	bool			is_dinner_end;
 }					t_table;
@@ -60,5 +61,6 @@ long				get_long(t_table *table, long *value);
 bool				get_bool(t_table *table, bool *value);
 long				current_time(char *time_code);
 void				better_usleep(long waited_time, t_table *table);
+void				logging(t_philo *philo, char *action);
 
 #endif

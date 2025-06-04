@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:43:27 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/02 20:38:59 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/04 15:39:24 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	parsing(t_table *table, char **av)
 {
 	table->philo_nbr = ft_atol(valid(av[0]));
 	table->time_to_die = ft_atol(valid(av[1])) * 1000;
-		//* usleep fonksiyonu mikrosaniye alıyo 1 milisanyie = 1000 mikrosaniye
+		//* usleep fonksiyonu mikrosaniye alıyo 1 milisaniye = 1000 mikrosaniye
 	table->time_to_eat = ft_atol(valid(av[2])) * 1000;
 	table->time_to_sleep = ft_atol(valid(av[3])) * 1000;
 	if (table->time_to_die || table->time_to_eat
