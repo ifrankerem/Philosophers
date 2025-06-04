@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/02 23:36:19 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/04 17:38:38 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg; // pointerı pointera eşitlemis oldum
 	while (!get_bool(table, &table->is_dinner_end))
 	{
+		take_forks();
 		if (get_bool(table, table->philo->status) == false)
 			eat(philo);
 		else

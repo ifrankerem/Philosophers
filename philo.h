@@ -13,7 +13,7 @@ typedef struct philo
 {
 	long			philo_id;
 	long			left_fork;
-	long			right_fork;
+	long			right_fork; //bunları t_fork yapmak mantıklı bi bak
 	long			meals_eaten;
 	bool			status;
 	pthread_t		philo_thread;
