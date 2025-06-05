@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:16:40 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/04 15:41:41 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/05 04:45:38 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ static void	init_philos(t_table *table)
 		table->philo[i].meals_eaten = 0;
 		table->philo[i].status = false;
 		//* buna gelicem burda ac tok kontrolu yapmalıyım false = aç true ise suan yiyor olmalı
-		table->philo[i].right_fork = i;
-		table->philo[i].left_fork = (i + 1) % table->philo_nbr;
+		table->philo[i].left_fork = &table->forks[(i + 1) % table->philo_nbr];
+		table->philo[i].right_fork = &table->forks[i];
+		//!burayı değiştirdik son 2 satırı eğer sorun cıkarsa forklarda buraya dön cünkü take forks fonksiyonu için t_forks yaptım sağ sol caatalı
 	}
 }
 

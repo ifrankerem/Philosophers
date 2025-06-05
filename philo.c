@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:16 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/04 17:43:46 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/05 04:53:07 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,18 @@ void	take_forks(t_philo *philo)
 {
 	if (philo->philo_id % 2)
 	{
-        safe_mutex(&philo->table->forks->)
+		safe_mutex(&philo->right_fork->fork, "LOCK");
+		logging(philo, "TAKEFORK");
+		safe_mutex(&philo->left_fork->fork, "LOCK");
+		logging(philo, "TAKEFORK");
 	}
 	else
+	{
+		safe_mutex(&philo->left_fork->fork, "LOCK");
+		logging(philo, "TAKEFORK");
+		safe_mutex(&philo->right_fork->fork, "LOCK");
+		logging(philo, "TAKEFORK");
+	}
 }
 void	eat(t_philo *philo)
 {

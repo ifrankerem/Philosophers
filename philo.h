@@ -12,8 +12,8 @@
 typedef struct philo
 {
 	long			philo_id;
-	long			left_fork;
-	long			right_fork; //bunları t_fork yapmak mantıklı bi bak
+	t_forks			*left_fork;
+	t_forks			*right_fork; //bunları t_fork yapmak mantıklı bi bak
 	long			meals_eaten;
 	bool			status;
 	pthread_t		philo_thread;
@@ -24,6 +24,7 @@ typedef struct philo
 typedef struct forks
 {
 	long			*fork_id;
+	bool			is_taken;
 	pthread_mutex_t	fork;
 }					t_forks;
 
