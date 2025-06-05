@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/31 18:31:25 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 02:37:39 by iarslan          ###   ########.fr       */
+/*   Created: 2025/06/06 01:40:36 by iarslan           #+#    #+#             */
+/*   Updated: 2025/06/06 02:33:05 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-const char	*ft_error_str(char *msg)
+void	clean(t_table *table)
 {
-	printf("%s", msg);
-	return (NULL);
-}
-void	*ft_error_ptr(char *msg)
-{
-	printf("%s", msg);
-	return (NULL);
-}
+	t_philo *philo;
+	int i;
 
-long	ft_error_long(char *msg)
-{
-	printf("%s", msg);
-	return (-1);
-}
-int	ft_error_int(char *msg)
-{
-	printf("%s", msg);
-	return (-1);
+	philo = table->philo;
+	i = -1;
+	while (++i < table->philo_nbr)
+	{
+		safe_mutex(&philo[i].philo_mutex, "DESTROY");
+		safe_mutex(&table->forks[i].fork, "DESTROY");
+	}
+
+	safe_mutex(&table->log_mutex, "DESTROY");
+	safe_mutex(&table->table_mutex, "DESTROY");
+
+	free(table->philo);
+	free(table->forks);
+	return (NULL);
 }

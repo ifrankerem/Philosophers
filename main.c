@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:22 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/04 15:37:49 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/06 02:39:08 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ int	main(int ac, char **av)
 
 	data_init(&table);
 
-	// baslangıc zamanını da alcıaksın
 	current_time();
-	dinner();
-	// clean everything clean();
-	else return (-1);
+	dinner(&table);
+	clean(&table);
+	return (-1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:16 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/05 04:53:07 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/06 01:24:25 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ usleep basıcaz bize arguman verilen süre kadar
 
 void	take_forks(t_philo *philo)
 {
-	if (philo->philo_id % 2)
+	if (philo->philo_id % 2 == 0)
 	{
 		safe_mutex(&philo->right_fork->fork, "LOCK");
 		logging(philo, "TAKEFORK");
@@ -37,12 +37,17 @@ void	take_forks(t_philo *philo)
 }
 void	eat(t_philo *philo)
 {
-	safe_mutex(&philo->table->meal_mutex, "LOCK");
 	philo->meals_eaten++;
-	philo->status = true;
-	safe_mutex(&philo->table->meal_mutex, "UNLOCK");
+	set_long(&philo->philo_mutex, &philo->last_meal_time,
+		current_time("MILLISECOND"));
 	logging(philo, "EATING");
-	better_usleep(philo->table->time_to_eat, philo->table);
+	better_usleep(philo->table->time_to_eat, &philo->table);
+	if (philo->table->number_of_limit_meals > 0
+		&& philo->meals_eaten == philo->table->number_of_limit_meals)
+		set_bool(&philo->philo_mutex, &philo->hunger_status, true);
+	// monitor tarafından okunacagı için thread safe!
+	safe_mutex(&philo->right_fork->fork, "UNLOCK");
+	safe_mutex(&philo->left_fork->fork, "UNLOCK");
 }
 
 void	sleeping(t_philo *philo)

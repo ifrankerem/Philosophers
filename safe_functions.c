@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:18 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/02 20:20:42 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/06 02:15:11 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,10 @@ int	safe_thread_op(pthread_t *th, void *(*func)(void *), char *flag)
 			return (ft_error_int("Thread is Failed!"));
 	}
 	return (0);
+}
+void	safe_increase_long(pthread_mutex_t *mutex, long *target)
+{
+	pthread_mutex_lock(mutex);
+	(*target)++;
+	pthread_mutex_unlock(mutex);
 }

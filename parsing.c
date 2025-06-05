@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:43:27 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/04 15:39:24 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/06 02:35:35 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static const char	*valid(char *av)
 	while (is_space(*av))
 		av++;
 	if (*av == '-')
-		return (ft_error_str("Arguments cannot be negative!"));
+		return (ft_error_str("Arguments cannot be negative!"), NULL);
 	else if (*av == '+')
 		av++;
 	if (is_digit(*av) != 1)
-		return (ft_error_str("Arguments need to be a number!"));
+		return (ft_error_str("Arguments need to be a number!"), NULL);
 	number = av;
 	return (number);
 }
@@ -54,7 +54,7 @@ void	parsing(t_table *table, char **av)
 {
 	table->philo_nbr = ft_atol(valid(av[0]));
 	table->time_to_die = ft_atol(valid(av[1])) * 1000;
-		//* usleep fonksiyonu mikrosaniye alıyo 1 milisaniye = 1000 mikrosaniye
+	//* usleep fonksiyonu mikrosaniye alıyo 1 milisaniye = 1000 mikrosaniye
 	table->time_to_eat = ft_atol(valid(av[2])) * 1000;
 	table->time_to_sleep = ft_atol(valid(av[3])) * 1000;
 	if (table->time_to_die || table->time_to_eat
