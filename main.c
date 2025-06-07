@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:22 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 02:39:08 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/06 02:48:09 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	main(int ac, char **av)
 		return (ft_error_int("Wrong Argument Number!"));
 
 	data_init(&table);
-
-	current_time();
 	dinner(&table);
 	clean(&table);
 	return (-1);
