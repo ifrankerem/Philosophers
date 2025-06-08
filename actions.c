@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:16 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/07 17:05:27 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/08 23:48:27 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ filozofa ait structtaki şeyleri arttırıp azaltıcaz(bunu mutexle mi yapıcaz 
 usleep basıcaz bize arguman verilen süre kadar
 */
 
-void	take_forks(t_philo *philo)
+static void	take_forks(t_philo *philo)
 {
 	if (philo->philo_id % 2 == 0)
 	{
@@ -37,6 +37,7 @@ void	take_forks(t_philo *philo)
 }
 void	eat(t_philo *philo)
 {
+	take_forks(philo);
 	philo->meals_eaten++;
 	set_long(&philo->philo_mutex, &philo->last_meal_time,
 		current_time("MILLISECOND"));
@@ -52,8 +53,8 @@ void	eat(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-	better_usleep(philo->table->time_to_sleep, philo->table);
 	logging(philo, "SLEEPING");
+	better_usleep(philo->table->time_to_sleep, philo->table);
 }
 
 void	thinking(t_philo *philo)

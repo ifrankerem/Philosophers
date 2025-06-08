@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/08 17:11:20 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/08 23:55:41 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,20 @@
 
 static void	set_philos_for_dinner(t_table *table)
 {
-	int	i;
-
-	i = -1;
-	while (++i < table->philo_nbr)
-		safe_thread_op(&table->philo[i].philo_thread, &routine,
-			&table->philo[i], "CREATE");
-	set_bool(&table->table_mutex, &table->is_philos_ready, true);
+	while (get_bool(&table->table_mutex, &table->is_philos_ready) == true)
+		;
 }
-static void	*one_philo(void *arg)
+void	*one_philo(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	set_philos_for_dinner(philo->table);
 	set_long(&philo->philo_mutex, &philo->last_meal_time,
 		current_time("MILLISECOND"));
 	logging(philo, "TAKEFORK");
-	monitor_start(philo->table);
-	while (!get_bool(&philo->table->table_mutex,
-			&philo->table->is_dinner_end) == true)
-		usleep(200);
+	safe_increase_long(&philo->table->table_mutex, &philo->table->threads_nbr);
+	while (!get_bool(&philo->table->table_mutex, &philo->table->is_dinner_end))
+		usleep(500);
 	return (NULL);
 }
 
@@ -45,18 +38,30 @@ void	dinner(t_table *table)
 	i = -1;
 	if (table->number_of_limit_meals == 0)
 		return ;
+	table->time_for_sim_start = current_time("MILLISECOND");
 	if (table->philo_nbr == 1)
+	{
 		safe_thread_op(&table->philo[0].philo_thread, &one_philo,
 			&table->philo[0], "CREATE");
-	;
-	set_philos_for_dinner(table);
+		set_bool(&table->table_mutex, &table->is_philos_ready, true);
+		table->time_for_sim_start = current_time("MILLISECOND");
+		monitor_start(table);
+		safe_thread_op(&table->philo[0].philo_thread, NULL, NULL, "JOIN");
+		return ;
+	}
+	while (++i < table->philo_nbr)
+	{
+		safe_thread_op(&table->philo[i].philo_thread, &routine,
+			&table->philo[i], "CREATE");
+		printf("Creating philo %d\n", i + 1);
+		printf("LOGGING PHILO %ld\n", table->philo->philo_id);
+	}
+	set_bool(&table->table_mutex, &table->is_philos_ready, true);
 	monitor_start(table);
-	while (get_bool(&table->table_mutex, &table->is_philos_ready) == true)
-		;
-	table->time_for_sim_start = current_time("MILLISECOND");
 	while (++i < table->philo_nbr)
 		safe_thread_op(&table->philo[i].philo_thread, NULL, NULL, "JOIN");
 }
+
 void	*routine(void *arg)
 {
 	t_table	*table;
@@ -64,18 +69,15 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg; // pointerı pointera eşitlemis oldum
 	table = philo->table;
+	set_philos_for_dinner(table);
 	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	while (!get_bool(&table->table_mutex, &table->is_dinner_end))
 	{
-		take_forks(philo);
-		if (get_bool(&table->table_mutex,
-				&table->philo->hunger_status) == false)
-			eat(philo);
-		else
-		{
-			sleeping(philo);
-			thinking(philo);
-		}
+		if (get_bool(&table->table_mutex, &philo->hunger_status) == true)
+			break ;
+		eat(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }

@@ -70,7 +70,6 @@ bool					get_bool(pthread_mutex_t *mutex, bool *value);
 long					current_time(char *time_code);
 void					better_usleep(long waited_time, t_table *table);
 void					dinner(t_table *table);
-void					take_forks(t_philo *philo);
 void					eat(t_philo *philo);
 void					sleeping(t_philo *philo);
 void					thinking(t_philo *philo);
