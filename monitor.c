@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 15:13:06 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/08 23:48:38 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 00:04:21 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	monitor_start(t_table *table)
 {
 	while (!is_all_threads_running(table))
 		;
-	safe_thread_op(&table->monitor, monitor_job, &table, "CREATE");
+	safe_thread_op(&table->monitor, monitor_job, table, "CREATE");
 }

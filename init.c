@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:16:40 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/07 18:30:33 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 00:14:15 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	data_init(t_table *table)
 	safe_mutex(&table->log_mutex, "INIT");
 	table->threads_nbr = 0;
 	set_bool(&table->table_mutex, &table->is_dinner_end, false);
+	set_bool(&table->table_mutex, &table->is_philos_ready, false);
 	init_forks(table);
 	init_philos(table);
 }

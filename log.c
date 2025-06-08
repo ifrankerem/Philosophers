@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 23:22:44 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/08 23:48:33 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 00:19:46 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	logging(t_philo *philo, char *action)
 {
 	long	elapsed;
 
-	if (philo->hunger_status == true) //? thread safe?
+	if (get_bool(&philo->philo_mutex, &philo->hunger_status) == true)
+		//? thread safe?
 		return ;
 	elapsed = current_time("MILLISECOND") - philo->table->time_for_sim_start;
 	safe_mutex(&philo->table->log_mutex, "LOCK");

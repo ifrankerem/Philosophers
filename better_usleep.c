@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 23:21:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/03 05:03:18 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 00:18:56 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ long	current_time(char *time_code)
 
 void	better_usleep(long waited_time, t_table *table)
 {
-	long start;
-	long elapsed;
-	long remaining_time;
+	long	start;
+	long	elapsed;
+	long	remaining_time;
 
 	start = current_time("MICROSECOND");
 	while (current_time("MICROSECOND") - start < waited_time)
 	{
-		if (table->is_dinner_end == true)
+		if (get_bool(&table->table_mutex, &table->is_dinner_end) == true)
 			break ;
 		elapsed = current_time("MICROSECOND") - start;
 		remaining_time = waited_time - elapsed;

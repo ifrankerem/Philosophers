@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/08 23:55:41 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 00:10:05 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,11 @@ void	dinner(t_table *table)
 		return ;
 	}
 	while (++i < table->philo_nbr)
-	{
 		safe_thread_op(&table->philo[i].philo_thread, &routine,
 			&table->philo[i], "CREATE");
-		printf("Creating philo %d\n", i + 1);
-		printf("LOGGING PHILO %ld\n", table->philo->philo_id);
-	}
 	set_bool(&table->table_mutex, &table->is_philos_ready, true);
 	monitor_start(table);
+	i = -1;
 	while (++i < table->philo_nbr)
 		safe_thread_op(&table->philo[i].philo_thread, NULL, NULL, "JOIN");
 }
