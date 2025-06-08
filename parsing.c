@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:43:27 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 02:35:35 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/08 03:45:49 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static const char	*valid(char *av)
 	return (number);
 }
 
-static long	ft_atol(char *av)
+static long	ft_atol(const char *av)
 {
 	int		i;
 	long	number;
@@ -57,9 +57,9 @@ void	parsing(t_table *table, char **av)
 	//* usleep fonksiyonu mikrosaniye alıyo 1 milisaniye = 1000 mikrosaniye
 	table->time_to_eat = ft_atol(valid(av[2])) * 1000;
 	table->time_to_sleep = ft_atol(valid(av[3])) * 1000;
-	if (table->time_to_die || table->time_to_eat
+	if (table->time_to_die < 60000 || table->time_to_eat < 60000
 		|| table->time_to_sleep < 60000)
-		return (ft_error_ptr("Please enter values more than 60ms"));
+		return (ft_error_void("Please enter values more than 60ms"));
 	if (av[4] != NULL)
 		table->number_of_limit_meals = ft_atol(valid(av[4]));
 	else

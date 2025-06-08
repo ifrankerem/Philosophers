@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:31:25 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 02:37:39 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/08 02:09:39 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,9 @@ int	ft_error_int(char *msg)
 {
 	printf("%s", msg);
 	return (-1);
+}
+void	ft_error_void(char *msg)
+{
+	printf("%s", msg);
+	return ;
 }

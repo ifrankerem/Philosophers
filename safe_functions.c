@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:18 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 02:15:11 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/08 16:54:51 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	*safe_malloc(size_t size)
 	return (ptr);
 }
 
-int	safe_thread_op(pthread_t *th, void *(*func)(void *), char *flag)
+int	safe_thread_op(pthread_t *th, void *(*func)(void *), void *arg,char *flag)
 {
 	if (!ft_strcmp(flag, "CREATE"))
 	{
-		if (pthread_create(th, NULL, func, NULL) != 0)
+		if (pthread_create(th, NULL, func, arg) != 0)
 			return (ft_error_int("Thread is Failed!"));
 	}
 	else if (!ft_strcmp(flag, "JOIN"))

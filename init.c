@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:16:40 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 01:24:32 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/07 18:30:33 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	init_philos(t_table *table)
 		//* buna gelicem burda ac tok kontrolu yapmalıyım false = aç true ise suan yiyor olmalı
 		table->philo[i].left_fork = &table->forks[(i + 1) % table->philo_nbr];
 		table->philo[i].right_fork = &table->forks[i];
-		safe_mutex(&table->philo->philo_mutex, "INIT");
+		safe_mutex(&table->philo[i].philo_mutex, "INIT");
 		//! burayı değiştirdik son 2 satırı eğer sorun cıkarsa forklarda buraya dön cünkü take forks fonksiyonu için t_forks yaptım sağ sol caatalı
 	}
 }
@@ -50,7 +50,7 @@ void	data_init(t_table *table)
 	safe_mutex(&table->table_mutex, "INIT");
 	safe_mutex(&table->log_mutex, "INIT");
 	table->threads_nbr = 0;
-	set_bool(table, &table->is_dinner_end, false);
+	set_bool(&table->table_mutex, &table->is_dinner_end, false);
 	init_forks(table);
 	init_philos(table);
 }

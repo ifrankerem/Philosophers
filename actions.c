@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:16 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 01:24:25 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/07 17:05:27 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	eat(t_philo *philo)
 	set_long(&philo->philo_mutex, &philo->last_meal_time,
 		current_time("MILLISECOND"));
 	logging(philo, "EATING");
-	better_usleep(philo->table->time_to_eat, &philo->table);
+	better_usleep(philo->table->time_to_eat, philo->table);
 	if (philo->table->number_of_limit_meals > 0
 		&& philo->meals_eaten == philo->table->number_of_limit_meals)
 		set_bool(&philo->philo_mutex, &philo->hunger_status, true);
