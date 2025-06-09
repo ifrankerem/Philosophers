@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:16 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/08 23:48:27 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 19:41:26 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ static void	take_forks(t_philo *philo)
 }
 void	eat(t_philo *philo)
 {
+	long	id;
+
+	id = philo->philo_id;
 	take_forks(philo);
 	philo->meals_eaten++;
-	set_long(&philo->philo_mutex, &philo->last_meal_time,
+	set_long(&philo->philo_mutex, &philo[id].last_meal_time,
 		current_time("MILLISECOND"));
 	logging(philo, "EATING");
 	better_usleep(philo->table->time_to_eat, philo->table);

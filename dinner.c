@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/09 00:32:41 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 19:58:16 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,17 @@ void	dinner(t_table *table)
 		safe_thread_op(&table->philo[0].philo_thread, &one_philo,
 			&table->philo[0], "CREATE");
 		set_bool(&table->table_mutex, &table->is_philos_ready, true);
-		table->time_for_sim_start = current_time("MILLISECOND");
 		monitor_start(table);
 		safe_thread_op(&table->philo[0].philo_thread, NULL, NULL, "JOIN");
 		return ;
 	}
 	while (++i < table->philo_nbr)
+	{
 		safe_thread_op(&table->philo[i].philo_thread, &routine,
 			&table->philo[i], "CREATE");
+		set_long(&table->philo[i].philo_mutex, &table->philo[i].last_meal_time,
+			table->time_for_sim_start);
+	}
 	set_bool(&table->table_mutex, &table->is_philos_ready, true);
 	monitor_start(table);
 	i = -1;
