@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/09 00:10:05 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 00:32:41 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	set_philos_for_dinner(t_table *table)
 {
-	while (get_bool(&table->table_mutex, &table->is_philos_ready) == true)
+	while (get_bool(&table->table_mutex, &table->is_philos_ready) == false)
 		;
 }
 void	*one_philo(void *arg)
