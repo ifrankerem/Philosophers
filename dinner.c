@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/09 19:58:16 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 20:11:11 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	*routine(void *arg)
 	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	while (!get_bool(&table->table_mutex, &table->is_dinner_end))
 	{
-		if (get_bool(&table->table_mutex, &philo->hunger_status) == true)
+		if (get_bool(&philo->philo_mutex, &philo->hunger_status) == true)
 			break ;
 		eat(philo);
 		sleeping(philo);
