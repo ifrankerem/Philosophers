@@ -76,6 +76,7 @@ void					thinking(t_philo *philo);
 void					logging(t_philo *philo, char *action);
 void					monitor(t_table *table);
 void					monitor_start(t_table *table);
+void					*monitor_job(void *arg);
 void					safe_increase_long(pthread_mutex_t *mutex,
 							long *target);
 void					clean(t_table *table);

@@ -6,17 +6,12 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/09 20:11:11 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/09 21:51:15 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	set_philos_for_dinner(t_table *table)
-{
-	while (get_bool(&table->table_mutex, &table->is_philos_ready) == false)
-		;
-}
 void	*one_philo(void *arg)
 {
 	t_philo	*philo;
@@ -40,26 +35,24 @@ void	dinner(t_table *table)
 		return ;
 	table->time_for_sim_start = current_time("MILLISECOND");
 	if (table->philo_nbr == 1)
-	{
 		safe_thread_op(&table->philo[0].philo_thread, &one_philo,
 			&table->philo[0], "CREATE");
-		set_bool(&table->table_mutex, &table->is_philos_ready, true);
-		monitor_start(table);
-		safe_thread_op(&table->philo[0].philo_thread, NULL, NULL, "JOIN");
-		return ;
-	}
-	while (++i < table->philo_nbr)
+	else
 	{
-		safe_thread_op(&table->philo[i].philo_thread, &routine,
-			&table->philo[i], "CREATE");
-		set_long(&table->philo[i].philo_mutex, &table->philo[i].last_meal_time,
-			table->time_for_sim_start);
+		while (++i < table->philo_nbr)
+		{
+			safe_thread_op(&table->philo[i].philo_thread, &routine,
+				&table->philo[i], "CREATE");
+			set_long(&table->philo[i].philo_mutex,
+				&table->philo[i].last_meal_time, table->time_for_sim_start);
+		}
 	}
 	set_bool(&table->table_mutex, &table->is_philos_ready, true);
-	monitor_start(table);
+	safe_thread_op(&table->monitor, monitor_job, table, "CREATE");
 	i = -1;
 	while (++i < table->philo_nbr)
 		safe_thread_op(&table->philo[i].philo_thread, NULL, NULL, "JOIN");
+	set_bool(&table->table_mutex, &table->is_dinner_end, true);
 }
 
 void	*routine(void *arg)
@@ -69,7 +62,8 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg; // pointerı pointera eşitlemis oldum
 	table = philo->table;
-	set_philos_for_dinner(table);
+	while (get_bool(&table->table_mutex, &table->is_philos_ready) == false)
+		;
 	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	while (!get_bool(&table->table_mutex, &table->is_dinner_end))
 	{
