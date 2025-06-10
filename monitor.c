@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 15:13:06 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/10 21:28:50 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/10 22:46:45 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,11 @@ void	*monitor_job(void *arg)
 			{
 				set_bool(&table->table_mutex, &table->is_dinner_end, true);
 				logging(&table->philo[i], "DIE");
-				break ;
 			}
 			if (all_philos_full(table))
 			{
 				printf("Everyone is full\n");
 				set_bool(&table->table_mutex, &table->is_dinner_end, true);
-				break ;
 			}
 		}
 	}

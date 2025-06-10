@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 23:22:44 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/09 00:19:46 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/10 23:04:20 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	logging(t_philo *philo, char *action)
 {
 	long	elapsed;
 
+	if (get_bool(&philo->table->table_mutex,
+			&philo->table->is_dinner_end) == true && ft_strcmp(action,
+			"DIE") != 0)
+		return ;
 	if (get_bool(&philo->philo_mutex, &philo->hunger_status) == true)
 		//? thread safe?
 		return ;

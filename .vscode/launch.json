@@ -7,11 +7,10 @@
       "request": "launch",
       "program": "${workspaceFolder}/philo",
       "args": [
-        "5",
-        "800",
+        "410",
+        "310",
         "200",
-        "200",
-        "7"
+        "100"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
