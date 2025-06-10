@@ -14,7 +14,6 @@ typedef struct philo	t_philo;
 typedef struct forks
 {
 	long				fork_id;
-	bool				is_taken;
 	pthread_mutex_t		fork;
 }						t_forks;
 typedef struct table
@@ -70,9 +69,9 @@ bool					get_bool(pthread_mutex_t *mutex, bool *value);
 long					current_time(char *time_code);
 void					better_usleep(long waited_time, t_table *table);
 void					dinner(t_table *table);
-void					eat(t_philo *philo);
-void					sleeping(t_philo *philo);
-void					thinking(t_philo *philo);
+bool					eat(t_philo *philo);
+bool					sleeping(t_philo *philo);
+bool					thinking(t_philo *philo);
 void					logging(t_philo *philo, char *action);
 void					monitor(t_table *table);
 void					monitor_start(t_table *table);

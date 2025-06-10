@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/09 21:51:15 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/10 21:08:39 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	dinner(t_table *table)
 	while (++i < table->philo_nbr)
 		safe_thread_op(&table->philo[i].philo_thread, NULL, NULL, "JOIN");
 	set_bool(&table->table_mutex, &table->is_dinner_end, true);
+	safe_thread_op(&table->monitor, NULL, NULL, "JOIN");
 }
 
 void	*routine(void *arg)
@@ -69,9 +70,12 @@ void	*routine(void *arg)
 	{
 		if (get_bool(&philo->philo_mutex, &philo->hunger_status) == true)
 			break ;
-		eat(philo);
-		sleeping(philo);
-		thinking(philo);
+		if(eat(philo) == true)
+			break;
+		if(sleeping(philo) == true)
+			break;
+		if(thinking(philo) == true)
+			break;
 	}
 	return (NULL);
 }
