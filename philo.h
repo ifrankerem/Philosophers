@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:45:20 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 10:51:15 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 15:07:27 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void					*safe_malloc(size_t size);
 int						safe_thread_op(pthread_t *th, void *(*func)(void *),
 							void *arg, char *flag);
 void					*routine(void *arg);
-void					data_init(t_table *table);
+int						data_init(t_table *table);
 void					set_long(pthread_mutex_t *mutex, long *target,
 							long value);
 void					set_bool(pthread_mutex_t *mutex, bool *target,
@@ -80,7 +80,7 @@ long					get_long(pthread_mutex_t *mutex, long *value);
 bool					get_bool(pthread_mutex_t *mutex, bool *value);
 long					current_time(char *time_code);
 void					better_usleep(long waited_time, t_table *table);
-void					dinner(t_table *table);
+int						dinner(t_table *table);
 bool					eat(t_philo *philo);
 bool					sleeping(t_philo *philo);
 bool					thinking(t_philo *philo);

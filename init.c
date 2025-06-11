@@ -6,25 +6,29 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:16:40 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 10:35:16 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 15:50:22 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init_forks(t_table *table)
+static int	init_forks(t_table *table)
 {
 	int	i;
 
 	i = -1;
 	table->forks = safe_malloc(sizeof(t_forks) * table->philo_nbr);
+	if (table->forks == NULL)
+		return (1);
 	while (++i < table->philo_nbr)
 	{
 		table->forks[i].fork_id = i;
-		safe_mutex(&table->forks[i].fork, "INIT");
+		if (pthread_mutex_init(&table->forks[i].fork, NULL) != 0)
+			return (ft_error_int("Mutex Failed!"));
 	}
+	return (0);
 }
-static void	init_philos(t_table *table)
+static int	init_philos(t_table *table)
 {
 	int	i;
 
@@ -40,17 +44,23 @@ static void	init_philos(t_table *table)
 		//* buna gelicem burda ac tok kontrolu yapmalıyım false = aç true ise suan yiyor olmalı
 		table->philo[i].left_fork = &table->forks[(i + 1) % table->philo_nbr];
 		table->philo[i].right_fork = &table->forks[i];
-		safe_mutex(&table->philo[i].philo_mutex, "INIT");
-		//! burayı değiştirdik son 2 satırı eğer sorun cıkarsa forklarda buraya dön cünkü take forks fonksiyonu için t_forks yaptım sağ sol caatalı
+		if (pthread_mutex_init(&table->philo[i].philo_mutex, NULL) != 0)
+			return (ft_error_int("Mutex Failed!"));
 	}
+	return (0);
 }
-void	data_init(t_table *table)
+int	data_init(t_table *table)
 {
-	safe_mutex(&table->table_mutex, "INIT");
-	safe_mutex(&table->log_mutex, "INIT");
+	if (pthread_mutex_init(&table->table_mutex, NULL) != 0)
+		return (ft_error_int("Mutex Failed!"));
+	if (pthread_mutex_init(&table->log_mutex, NULL) != 0)
+		return (ft_error_int("Mutex Failed!"));
 	table->threads_nbr = 0;
 	table->is_dinner_end = false;
 	table->is_philos_ready = false;
-	init_forks(table);
-	init_philos(table);
+	if (init_forks(table) == 1)
+		return (1);
+	if (init_philos(table) == 1)
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 15:13:06 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/10 22:46:45 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:41:25 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ static bool	is_philo_dead(t_philo *philo)
 	elapsed = current_time("MILLISECOND") - get_long(&philo->philo_mutex,
 			&philo->last_meal_time);
 	if (elapsed > (philo->table->time_to_die / 1000))
-	{
-		// printf("elapsed %ld in ms\n", elapsed);
 		return (true);
-	}
 	return (false);
 }
 static bool	all_philos_full(t_table *table)
@@ -71,10 +68,7 @@ void	*monitor_job(void *arg)
 				logging(&table->philo[i], "DIE");
 			}
 			if (all_philos_full(table))
-			{
-				printf("Everyone is full\n");
 				set_bool(&table->table_mutex, &table->is_dinner_end, true);
-			}
 		}
 	}
 	return (NULL);

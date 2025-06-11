@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:43:27 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 12:07:40 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 17:18:50 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,17 @@ int	parsing(t_table *table, char **av)
 	table->time_to_die = ft_atol(av[1]) * 1000;
 	table->time_to_eat = ft_atol(av[2]) * 1000;
 	table->time_to_sleep = ft_atol(av[3]) * 1000;
+	if (table->philo_nbr <= 0)
+		return (ft_error_int("No args allowed equal to 0"));
 	if (table->time_to_die < 60000 || table->time_to_eat < 60000
 		|| table->time_to_sleep < 60000)
 		return (ft_error_int("Please enter values more than 60ms"));
 	if (av[4])
+	{
 		table->number_of_limit_meals = ft_atol(av[4]);
+		if (table->number_of_limit_meals == 0)
+			return (ft_error_int("No args allowed equal to 0"));
+	}
 	else
 		table->number_of_limit_meals = -1;
 	return (0);
