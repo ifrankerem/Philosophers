@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 10:38:20 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 12:37:26 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	*routine(void *arg)
 	table = philo->table;
 	while (get_bool(&table->table_mutex, &table->is_philos_ready) == false)
 		;
+	if (philo->philo_id % 2 != 0)
+		usleep(1000);
 	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	while (!get_bool(&table->table_mutex, &table->is_dinner_end))
 	{
