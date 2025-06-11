@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:45:20 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 10:45:21 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 10:51:15 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ bool					sleeping(t_philo *philo);
 bool					thinking(t_philo *philo);
 void					logging(t_philo *philo, char *action);
 void					monitor(t_table *table);
-void					monitor_start(t_table *table);
 void					*monitor_job(void *arg);
 void					safe_increase_long(pthread_mutex_t *mutex,
 							long *target);

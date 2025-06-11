@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:16 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 10:44:56 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 10:52:07 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ bool	thinking(t_philo *philo)
 	if (philo->table->philo_nbr % 2 == 0 || ((table->time_to_eat * 2)
 			- (table->time_to_sleep) < 0))
 		return (false);
-	better_usleep((table->time_to_eat * 2) - (table->time_to_sleep) * 0.60,
+	better_usleep((table->time_to_eat * 2) - ((table->time_to_sleep) * 0.60),
 		table);
 	return (false);
 }
