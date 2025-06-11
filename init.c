@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:16:40 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 02:16:15 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 10:35:16 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	init_philos(t_table *table)
 		//! burayı değiştirdik son 2 satırı eğer sorun cıkarsa forklarda buraya dön cünkü take forks fonksiyonu için t_forks yaptım sağ sol caatalı
 	}
 }
-int	data_init(t_table *table)
+void	data_init(t_table *table)
 {
 	safe_mutex(&table->table_mutex, "INIT");
 	safe_mutex(&table->log_mutex, "INIT");
@@ -53,5 +53,4 @@ int	data_init(t_table *table)
 	table->is_philos_ready = false;
 	init_forks(table);
 	init_philos(table);
-	return (0);
 }

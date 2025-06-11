@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 02:19:27 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 10:38:20 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	*one_philo(void *arg)
 	return (NULL);
 }
 
-int	dinner(t_table *table)
+void	dinner(t_table *table)
 {
 	int	i;
 
 	i = -1;
 	if (table->number_of_limit_meals == 0)
-		return (0);
+		return ;
 	table->time_for_sim_start = current_time("MILLISECOND");
 	if (table->philo_nbr == 1)
 		safe_thread_op(&table->philo[0].philo_thread, &one_philo,
@@ -54,7 +54,6 @@ int	dinner(t_table *table)
 		safe_thread_op(&table->philo[i].philo_thread, NULL, NULL, "JOIN");
 	set_bool(&table->table_mutex, &table->is_dinner_end, true);
 	safe_thread_op(&table->monitor, NULL, NULL, "JOIN");
-	return (0);
 }
 
 void	*routine(void *arg)
