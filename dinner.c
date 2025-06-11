@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 16:48:28 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 18:18:50 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	*routine(void *arg)
 	while (get_bool(&table->table_mutex, &table->is_philos_ready) == false)
 		;
 	if (philo->philo_id % 2 != 0)
-		usleep(500);
+		usleep(table->time_to_eat / 2); //!burayı sorgula 
 	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	while (!get_bool(&table->table_mutex, &table->is_dinner_end))
 	{
