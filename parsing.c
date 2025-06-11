@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:43:27 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/08 03:45:49 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 02:27:16 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,49 +20,49 @@ static int	is_space(int c)
 {
 	return ((c <= 13 && c >= 9) || (c == 32));
 }
-static const char	*valid(char *av)
+long	safe_atol(char *arg)
 {
-	const char	*number;
-
-	while (is_space(*av))
-		av++;
-	if (*av == '-')
-		return (ft_error_str("Arguments cannot be negative!"), NULL);
-	else if (*av == '+')
-		av++;
-	if (is_digit(*av) != 1)
-		return (ft_error_str("Arguments need to be a number!"), NULL);
-	number = av;
-	return (number);
-}
-
-static long	ft_atol(const char *av)
-{
+	long	num;
 	int		i;
-	long	number;
 
-	number = 0;
-	i = -1;
-	while (is_digit(av[++i]))
-		number = (number * 10) + (av[i] - '0');
-	if (number > INT_MAX)
-		return (ft_error_long("Argument value is higher than INT_MAX value!"));
-	return (number);
+	num = 0;
+	i = 0;
+	while (*arg && is_space(*arg))
+		arg++;
+	if (*arg == '-')
+		return (ft_error_long("Argument cannot be negative!"));
+	if (*arg == '+')
+		arg++;
+	if (!is_digit(*arg))
+		return (ft_error_long("Argument must be numeric!"));
+	while (arg[i])
+	{
+		if (!is_digit(arg[i]))
+			return (ft_error_long("Non-digit character in argument!"));
+		num = num * 10 + (arg[i] - '0');
+		if (num > INT_MAX)
+			return (ft_error_long("Argument exceeds INT_MAX"));
+		i++;
+	}
+	return (num);
 }
 
-void	parsing(t_table *table, char **av)
+int	parsing(t_table *table, char **av)
 {
-	table->philo_nbr = ft_atol(valid(av[0]));
-	table->time_to_die = ft_atol(valid(av[1])) * 1000;
-	//* usleep fonksiyonu mikrosaniye alıyo 1 milisaniye = 1000 mikrosaniye
-	table->time_to_eat = ft_atol(valid(av[2])) * 1000;
-	table->time_to_sleep = ft_atol(valid(av[3])) * 1000;
+	if (av[0])
+		table->philo_nbr = safe_atol(av[0]);
+	if (av[1])
+		table->time_to_die = safe_atol(av[1]) * 1000;
+	if (av[2])
+		table->time_to_eat = safe_atol(av[2]) * 1000;
+	if (av[3])
+		table->time_to_sleep = safe_atol(av[3]) * 1000;
 	if (table->time_to_die < 60000 || table->time_to_eat < 60000
 		|| table->time_to_sleep < 60000)
-		return (ft_error_void("Please enter values more than 60ms"));
-	if (av[4] != NULL)
-		table->number_of_limit_meals = ft_atol(valid(av[4]));
+		return (ft_error_int("Please enter values more than 60ms"));
+	if (av[4])
+		table->number_of_limit_meals = safe_atol(av[4]);
 	else
 		table->number_of_limit_meals = -1;
-	//! sondaki optional argüman var mı flagi
+	return (0);
 }

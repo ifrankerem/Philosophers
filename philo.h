@@ -47,19 +47,19 @@ typedef struct philo
 
 }						t_philo;
 
-const char				*ft_error_str(char *msg);
+char					*valid(char *av);
 void					*ft_error_ptr(char *msg);
 long					ft_error_long(char *msg);
 int						ft_error_int(char *msg);
 void					ft_error_void(char *msg);
-void					parsing(t_table *table, char **av);
+int					parsing(t_table *table, char **av);
 int						ft_strcmp(char *s1, char *s2);
 int						safe_mutex(pthread_mutex_t *mutex, char *flag);
 void					*safe_malloc(size_t size);
 int						safe_thread_op(pthread_t *th, void *(*func)(void *),
 							void *arg, char *flag);
 void					*routine(void *arg);
-void					data_init(t_table *table);
+int						data_init(t_table *table);
 void					set_long(pthread_mutex_t *mutex, long *target,
 							long value);
 void					set_bool(pthread_mutex_t *mutex, bool *target,
@@ -68,7 +68,7 @@ long					get_long(pthread_mutex_t *mutex, long *value);
 bool					get_bool(pthread_mutex_t *mutex, bool *value);
 long					current_time(char *time_code);
 void					better_usleep(long waited_time, t_table *table);
-void					dinner(t_table *table);
+int						dinner(t_table *table);
 bool					eat(t_philo *philo);
 bool					sleeping(t_philo *philo);
 bool					thinking(t_philo *philo);

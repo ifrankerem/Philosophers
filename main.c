@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:22 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/06 02:48:09 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 04:21:08 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int	main(int ac, char **av)
 {
-	t_table table;
-	if (ac == 5 || ac == 6)
-		parsing(&table, av + 1);
-	else
-		return (ft_error_int("Wrong Argument Number!"));
+	t_table	table;
 
-	data_init(&table);
-	dinner(&table);
-	clean(&table);
-	return (-1);
+	if (ac != 5 && ac != 6)
+		return (ft_error_int("Wrong number of arguments!"));
+	if (parsing(&table, av + 1))
+		return (1);
+	if (data_init(&table))
+		return (clean(&table), 1);
+	if (dinner(&table))
+		return (clean(&table), 1);
+	return (0);
 }
