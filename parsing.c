@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:43:27 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 10:36:13 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 12:07:40 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ long	ft_atol(char *arg)
 int	parsing(t_table *table, char **av)
 {
 	table->philo_nbr = ft_atol(av[0]);
+	if (table->philo_nbr == -1)
+		return (1);
 	table->time_to_die = ft_atol(av[1]) * 1000;
 	table->time_to_eat = ft_atol(av[2]) * 1000;
 	table->time_to_sleep = ft_atol(av[3]) * 1000;

@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:31:25 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 02:15:23 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/11 12:06:14 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_error_ptr(char *msg)
 long	ft_error_long(char *msg)
 {
 	printf("%s", msg);
-	return (1);
+	return (-1);
 }
 int	ft_error_int(char *msg)
 {
