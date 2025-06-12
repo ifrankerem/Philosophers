@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:45:20 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 15:07:27 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 07:01:49 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@
 # include <unistd.h>
 
 typedef struct philo	t_philo;
+
+typedef enum e_time_unit
+{
+	MILLISECOND,
+	MICROSECOND
+}						t_time_unit;
+typedef enum e_log_unit
+{
+	TAKEFORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DIE
+}						t_log_unit;
 
 typedef struct forks
 {
@@ -65,11 +79,6 @@ long					ft_error_long(char *msg);
 int						ft_error_int(char *msg);
 void					ft_error_void(char *msg);
 int						parsing(t_table *table, char **av);
-int						ft_strcmp(char *s1, char *s2);
-int						safe_mutex(pthread_mutex_t *mutex, char *flag);
-void					*safe_malloc(size_t size);
-int						safe_thread_op(pthread_t *th, void *(*func)(void *),
-							void *arg, char *flag);
 void					*routine(void *arg);
 int						data_init(t_table *table);
 void					set_long(pthread_mutex_t *mutex, long *target,
@@ -78,17 +87,17 @@ void					set_bool(pthread_mutex_t *mutex, bool *target,
 							bool value);
 long					get_long(pthread_mutex_t *mutex, long *value);
 bool					get_bool(pthread_mutex_t *mutex, bool *value);
-long					current_time(char *time_code);
+long					current_time(t_time_unit time_code);
 void					better_usleep(long waited_time, t_table *table);
 int						dinner(t_table *table);
 bool					eat(t_philo *philo);
 bool					sleeping(t_philo *philo);
 bool					thinking(t_philo *philo);
-void					logging(t_philo *philo, char *action);
+void					logging(t_philo *philo, t_log_unit action_code);
 void					monitor(t_table *table);
 void					*monitor_job(void *arg);
 void					safe_increase_long(pthread_mutex_t *mutex,
 							long *target);
-void					clean(t_table *table);
+int						clean(t_table *table);
 
 #endif

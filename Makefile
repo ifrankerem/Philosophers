@@ -1,7 +1,7 @@
 NAME = philo
 
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS = -g -Wall -Wextra -Werror
 
 HEADER = philo.h
 
@@ -15,7 +15,6 @@ SRC = main.c \
       log.c \
       monitor.c \
       parsing.c \
-      safe_functions.c \
       utils.c
 
 OBJ = main.o \
@@ -28,7 +27,6 @@ OBJ = main.o \
       log.o \
       monitor.o \
       parsing.o \
-      safe_functions.o \
       utils.o
 
 all: $(NAME)

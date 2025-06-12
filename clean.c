@@ -6,13 +6,13 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 01:40:36 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/07 17:06:15 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 06:55:02 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	clean(t_table *table)
+int	clean(t_table *table)
 {
 	t_philo	*philo;
 	int		i;
@@ -21,11 +21,16 @@ void	clean(t_table *table)
 	i = -1;
 	while (++i < table->philo_nbr)
 	{
-		safe_mutex(&philo[i].philo_mutex, "DESTROY");
-		safe_mutex(&table->forks[i].fork, "DESTROY");
+		if (pthread_mutex_destroy(&philo[i].philo_mutex) != 0)
+			return (ft_error_int("Mutex Failed!"));
+		if (pthread_mutex_destroy(&table->forks[i].fork) != 0)
+			return (ft_error_int("Mutex Failed!"));
 	}
-	safe_mutex(&table->log_mutex, "DESTROY");
-	safe_mutex(&table->table_mutex, "DESTROY");
+	if (pthread_mutex_destroy(&table->log_mutex) != 0)
+		return (ft_error_int("Mutex Failed!"));
+	if (pthread_mutex_destroy(&table->table_mutex) != 0)
+		return (ft_error_int("Mutex Failed!"));
 	free(table->philo);
 	free(table->forks);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:16:40 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 15:50:22 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 06:57:55 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static int	init_forks(t_table *table)
 	int	i;
 
 	i = -1;
-	table->forks = safe_malloc(sizeof(t_forks) * table->philo_nbr);
+	table->forks = malloc(sizeof(t_forks) * table->philo_nbr);
+	if (!table->forks)
+		return (ft_error_int("Malloc Error!"));
 	if (table->forks == NULL)
 		return (1);
 	while (++i < table->philo_nbr)
@@ -32,7 +34,9 @@ static int	init_philos(t_table *table)
 {
 	int	i;
 
-	table->philo = safe_malloc(sizeof(t_philo) * table->philo_nbr);
+	table->philo = malloc(sizeof(t_philo) * table->philo_nbr);
+	if (!table->philo)
+		return (ft_error_int("Malloc Error!"));
 	i = -1;
 	while (++i < table->philo_nbr)
 	{

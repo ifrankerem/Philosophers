@@ -6,26 +6,22 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 23:21:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/09 00:18:56 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 07:09:36 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	current_time(char *time_code)
+long	current_time(t_time_unit time_code)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	if (ft_strcmp(time_code, "SECOND") == 0)
-		return (tv.tv_sec + tv.tv_usec / 1000000);
-	if (ft_strcmp(time_code, "MILLISECOND") == 0)
+	if (time_code == MILLISECOND)
 		return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-	if (ft_strcmp(time_code, "MICROSECOND") == 0)
+	if (time_code == MICROSECOND)
 		return (tv.tv_sec * 1000000 + tv.tv_usec);
-	else
-		return (ft_error_long("Error in gettimeofday function"));
-	return (-1);
+	return (ft_error_long("Error in gettimeofday function"));
 }
 
 void	better_usleep(long waited_time, t_table *table)
@@ -34,18 +30,21 @@ void	better_usleep(long waited_time, t_table *table)
 	long	elapsed;
 	long	remaining_time;
 
-	start = current_time("MICROSECOND");
-	while (current_time("MICROSECOND") - start < waited_time)
+	start = current_time(MICROSECOND);
+	while (current_time(MICROSECOND) - start < waited_time)
 	{
 		if (get_bool(&table->table_mutex, &table->is_dinner_end) == true)
 			break ;
-		elapsed = current_time("MICROSECOND") - start;
+		elapsed = current_time(MICROSECOND) - start;
 		remaining_time = waited_time - elapsed;
 		if (remaining_time > 100)
-			usleep(remaining_time / 2);
+			usleep(100);
 		else
-			while (current_time("MICROSECOND") - start < waited_time)
+		{
+			while (current_time(MICROSECOND) - start < waited_time)
 				;
+			break ;
+		}
 	}
 }
 /* bu fonksiyon benim bekleyeceğim süre kadar while da tutup süreyi sürekli

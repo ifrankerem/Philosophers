@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 18:18:50 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 07:29:12 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	*one_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	set_long(&philo->philo_mutex, &philo->last_meal_time,
-		current_time("MILLISECOND"));
-	logging(philo, "TAKEFORK");
+		current_time(MILLISECOND));
+	logging(philo, TAKEFORK);
 	safe_increase_long(&philo->table->table_mutex, &philo->table->threads_nbr);
 	while (!get_bool(&philo->table->table_mutex, &philo->table->is_dinner_end))
 		usleep(500);
@@ -38,7 +38,8 @@ int	dinner2(t_table *table)
 			return (ft_error_int("Thread is Failed!"));
 	}
 	set_bool(&table->table_mutex, &table->is_dinner_end, true);
-	pthread_join(table->monitor, NULL);
+	if (pthread_join(table->monitor, NULL) != 0)
+		return (ft_error_int("Thread is Failed!"));
 	return (0);
 }
 int	dinner(t_table *table)
@@ -48,7 +49,7 @@ int	dinner(t_table *table)
 	i = -1;
 	if (table->number_of_limit_meals == 0)
 		return (1);
-	table->time_for_sim_start = current_time("MILLISECOND");
+	table->time_for_sim_start = current_time(MILLISECOND);
 	if (table->philo_nbr == 1)
 	{
 		if (pthread_create(&table->philo[0].philo_thread, NULL, &one_philo,
@@ -80,7 +81,7 @@ void	*routine(void *arg)
 	while (get_bool(&table->table_mutex, &table->is_philos_ready) == false)
 		;
 	if (philo->philo_id % 2 != 0)
-		usleep(table->time_to_eat / 2); //!burayı sorgula 
+		usleep(1000);
 	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	while (!get_bool(&table->table_mutex, &table->is_dinner_end))
 	{
