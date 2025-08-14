@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:04:58 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 07:04:28 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 09:52:41 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	safe_increase_long(pthread_mutex_t *mutex, long *target)
 	(*target)++;
 	pthread_mutex_unlock(mutex);
 }
+
 void	set_long(pthread_mutex_t *mutex, long *target, long value)
 {
 	pthread_mutex_lock(mutex);

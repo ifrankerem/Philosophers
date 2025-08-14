@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 15:13:06 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 06:59:37 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 09:52:31 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ static bool	is_philo_dead(t_philo *philo)
 	long	elapsed;
 
 	if (get_bool(&philo->philo_mutex, &philo->hunger_status) == true)
-		return (false); // filozof sonuc olarak ölmemis
+		return (false);
 	elapsed = current_time(MILLISECOND) - get_long(&philo->philo_mutex,
 			&philo->last_meal_time);
 	if (elapsed > (philo->table->time_to_die / 1000))
 		return (true);
 	return (false);
 }
+
 static bool	all_philos_full(t_table *table)
 {
 	int	i;
@@ -37,6 +38,7 @@ static bool	all_philos_full(t_table *table)
 	}
 	return (true);
 }
+
 static bool	is_all_threads_running(t_table *table)
 {
 	bool	ret_value;
@@ -48,6 +50,7 @@ static bool	is_all_threads_running(t_table *table)
 	pthread_mutex_unlock(&table->table_mutex);
 	return (ret_value);
 }
+
 void	*monitor_job(void *arg)
 {
 	t_table	*table;

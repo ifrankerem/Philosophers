@@ -6,17 +6,11 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:16 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 07:31:39 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:27:34 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/*
-burda log bastırcaz
-filozofa ait structtaki şeyleri arttırıp azaltıcaz(bunu mutexle mi yapıcaz yoksa her thread zaten kendisi yapıyo mutex lock unlocka gerek var mı ?)
-usleep basıcaz bize arguman verilen süre kadar
-*/
 
 static void	take_forks(t_philo *philo)
 {
@@ -35,6 +29,7 @@ static void	take_forks(t_philo *philo)
 		logging(philo, TAKEFORK);
 	}
 }
+
 bool	eat(t_philo *philo)
 {
 	t_table	*table;
@@ -52,7 +47,6 @@ bool	eat(t_philo *philo)
 	if (philo->table->number_of_limit_meals > 0
 		&& philo->meals_eaten == philo->table->number_of_limit_meals)
 		set_bool(&philo->philo_mutex, &philo->hunger_status, true);
-	//! monitor tarafından okunacagı için thread safe! AMA YİNE DE DÜSÜN BK BURAYAA
 	pthread_mutex_unlock(&philo->right_fork->fork);
 	pthread_mutex_unlock(&philo->left_fork->fork);
 	return (false);

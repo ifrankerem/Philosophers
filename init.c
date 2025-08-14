@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 22:16:40 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 06:57:55 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:44:16 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	init_forks(t_table *table)
 	table->forks = malloc(sizeof(t_forks) * table->philo_nbr);
 	if (!table->forks)
 		return (ft_error_int("Malloc Error!"));
-	if (table->forks == NULL)
-		return (1);
 	while (++i < table->philo_nbr)
 	{
 		table->forks[i].fork_id = i;
@@ -30,6 +28,7 @@ static int	init_forks(t_table *table)
 	}
 	return (0);
 }
+
 static int	init_philos(t_table *table)
 {
 	int	i;
@@ -42,10 +41,8 @@ static int	init_philos(t_table *table)
 	{
 		table->philo[i].table = table;
 		table->philo[i].philo_id = i + 1;
-		// philo id 1 den baslasın diye hem de cıktı için
 		table->philo[i].meals_eaten = 0;
 		table->philo[i].hunger_status = false;
-		//* buna gelicem burda ac tok kontrolu yapmalıyım false = aç true ise suan yiyor olmalı
 		table->philo[i].left_fork = &table->forks[(i + 1) % table->philo_nbr];
 		table->philo[i].right_fork = &table->forks[i];
 		if (pthread_mutex_init(&table->philo[i].philo_mutex, NULL) != 0)
@@ -53,6 +50,7 @@ static int	init_philos(t_table *table)
 	}
 	return (0);
 }
+
 int	data_init(t_table *table)
 {
 	if (pthread_mutex_init(&table->table_mutex, NULL) != 0)

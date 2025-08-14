@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 23:21:54 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 07:09:36 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 09:53:15 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,3 @@ void	better_usleep(long waited_time, t_table *table)
 		}
 	}
 }
-/* bu fonksiyon benim bekleyeceğim süre kadar while da tutup süreyi sürekli
-o while içinde süreyi sayıp kontrol edip usleepin sapmasını olabildiğince
-en aaza indiriyor!!
-*/

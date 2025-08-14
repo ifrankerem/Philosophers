@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 23:30:22 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 06:53:37 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 09:53:52 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (dinner(&table) == 1)
 		return (1);
-	if(clean(&table) == 1)
-		return(1);
+	if (clean(&table) == 1)
+		return (1);
 	return (0);
 }

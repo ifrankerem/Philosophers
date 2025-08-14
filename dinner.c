@@ -6,13 +6,13 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 23:44:49 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 07:29:12 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 13:31:27 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*one_philo(void *arg)
+static void	*one_philo(void *arg)
 {
 	t_philo	*philo;
 
@@ -25,7 +25,8 @@ void	*one_philo(void *arg)
 		usleep(500);
 	return (NULL);
 }
-int	dinner2(t_table *table)
+
+static int	dinner2(t_table *table)
 {
 	int	i;
 
@@ -42,6 +43,7 @@ int	dinner2(t_table *table)
 		return (ft_error_int("Thread is Failed!"));
 	return (0);
 }
+
 int	dinner(t_table *table)
 {
 	int	i;
@@ -76,13 +78,13 @@ void	*routine(void *arg)
 	t_table	*table;
 	t_philo	*philo;
 
-	philo = (t_philo *)arg; // pointerı pointera eşitlemis oldum
+	philo = (t_philo *)arg;
 	table = philo->table;
 	while (get_bool(&table->table_mutex, &table->is_philos_ready) == false)
 		;
+	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	if (philo->philo_id % 2 != 0)
 		usleep(1000);
-	safe_increase_long(&table->table_mutex, &table->threads_nbr);
 	while (!get_bool(&table->table_mutex, &table->is_dinner_end))
 	{
 		if (eat(philo) == true)

@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 10:45:20 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/12 07:01:49 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 13:22:21 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ typedef struct philo
 }						t_philo;
 
 int						check_args(int argc, char **argv);
-void					*ft_error_ptr(char *msg);
 long					ft_error_long(char *msg);
 int						ft_error_int(char *msg);
-void					ft_error_void(char *msg);
 int						parsing(t_table *table, char **av);
 void					*routine(void *arg);
 int						data_init(t_table *table);

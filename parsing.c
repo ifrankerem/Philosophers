@@ -6,7 +6,7 @@
 /*   By: iarslan <iarslan@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 18:43:27 by iarslan           #+#    #+#             */
-/*   Updated: 2025/06/11 17:18:50 by iarslan          ###   ########.fr       */
+/*   Updated: 2025/06/12 13:33:23 by iarslan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	is_digit(int c)
 {
 	return ((c <= '9' && c >= '0'));
 }
+
 static int	is_space(int c)
 {
 	return ((c <= 13 && c >= 9) || (c == 32));
@@ -50,7 +51,7 @@ int	check_args(int argc, char **argv)
 	return (0);
 }
 
-long	ft_atol(char *arg)
+static long	ft_atol(char *arg)
 {
 	long	num;
 	int		i;
