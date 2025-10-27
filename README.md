@@ -113,7 +113,7 @@
 
   ## 🔍 Example Visualization
 
-  ![Dining Philosophers Example](https://upload.wikimedia.org/wikipedia/commons/7/7b/Dining_philosophers_problem.png)
+  ![Dining Philosophers Example](https://upload.wikimedia.org/wikipedia/commons/7/7b/An_illustration_of_the_dining_philosophers_problem.png)
 
   *(Illustration: Five philosophers alternating between thinking, eating, and waiting for forks.)*
 
