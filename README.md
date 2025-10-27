@@ -136,4 +136,4 @@
 
   ---
 
-  🧑‍💻 *Developed by [@iarslan](https://github.com/iarslan)*
+  🧑‍💻 *Developed by [@ifrankerem](https://github.com/ifankerem)*
