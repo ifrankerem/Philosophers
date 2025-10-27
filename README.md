@@ -129,6 +129,11 @@
 
   ---
 
+  ## 🎥 Project Demo
+  Check out the full video demonstration on YouTube 👇  
+  ▶️ [Watch on YouTube](https://www.youtube.com/watch?v=w3of0xvm7Ck)
+
+  ---
   ## 📜 License
 
   This project is part of the **42 School curriculum** and created purely for educational purposes.  
