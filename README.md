@@ -1,5 +1,5 @@
   # 🧠 Philosophers  
-  **"I never thought philosophy would be so deadly." — developed by [@iarslan](https://github.com/iarslan)**  
+  **"I never thought philosophy would be so deadly." — developed by [@iarslan](https://github.com/ifrankerem)**  
 
   The **Philosophers** project is a multithreading simulation written in C.  
   It models the famous *Dining Philosophers Problem* — a classic synchronization challenge that tests your understanding of **threads**, **mutexes**, and **shared resources**.
