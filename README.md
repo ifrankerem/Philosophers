@@ -1,144 +1,181 @@
-  # 🧠 Philosophers  
-  **"I never thought philosophy would be so deadly." — developed by [@ifrankerem](https://github.com/ifrankerem)**  
+<div align="center">
 
-  The **Philosophers** project is a multithreading simulation written in C.  
-  It models the famous *Dining Philosophers Problem* — a classic synchronization challenge that tests your understanding of **threads**, **mutexes**, and **shared resources**.
+# 🧠 Philosophers
 
-  The project demonstrates how concurrent processes interact safely while avoiding **deadlocks**, **data races**, and **starvation**.
+**The dining philosophers problem, solved in C with threads and mutexes — no philosopher may starve.**
 
-  ---
+![Language](https://img.shields.io/badge/language-C-00599C?style=flat-square)
+![42](https://img.shields.io/badge/42-Common%20Core-000000?style=flat-square)
+![Concurrency](https://img.shields.io/badge/pthreads-%2B%20semaphores-8A2BE2?style=flat-square)
+![Norminette](https://img.shields.io/badge/norm-42%20standard-2b9348?style=flat-square)
+![Stars](https://img.shields.io/github/stars/ifrankerem/Philosophers?style=flat-square)
 
-  ## 🧩 What Is This Project About?
+</div>
 
-  Imagine a group of philosophers sitting around a table with forks between them.  
-  Each philosopher alternates between **thinking**, **eating**, and **sleeping** —  
-  but to eat, they must pick up **two forks** (one on the left, one on the right).  
-  Since the number of forks is limited, this creates a concurrency problem.
+> *"I never thought philosophy would be so deadly."*
 
-  Your task:  
-  Build a system where philosophers can eat without conflicts, starvation, or deadlocks — using threads and mutexes.
+---
 
-  ---
+## 📋 Table of Contents
 
-  ## ⚙️ Features
+- [About](#about)
+- [The Problem](#the-problem)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Output Format](#output-format)
+- [Implementation](#implementation)
+- [Bonus](#bonus)
+- [Learning Outcomes](#learning-outcomes)
+- [Demo](#demo)
+- [Author](#author)
 
-  ✅ Real-time simulation of multiple philosophers  
-  ✅ Thread-based concurrency with **pthread**  
-  ✅ Mutex-based fork management  
-  ✅ Precise timestamped logging  
-  ✅ Thread-safe output  
-  ✅ Optional parameter to define required number of meals  
-  ✅ Clean handling of philosopher death conditions  
-  ✅ No global variables — all data encapsulated in structs  
+---
 
-  ---
+## 📖 About
 
-  ## 🧰 Installation & Setup
+**Philosophers** is a multithreading simulation written in **C** that models the
+famous *Dining Philosophers Problem* — philosophers alternating between
+thinking, eating and sleeping at a table where each fork is a contested
+resource.
 
-  ### 1️⃣ Clone the repository
-  ```bash
-  git clone https://github.com/iarslan/philosophers.git
-  cd philosophers
-  ```
+The job is to run the table with **no deadlocks, no data races and no
+starvation**, using `pthread` and mutexes (threads) or processes and
+semaphores (bonus).
 
-  ### 2️⃣ Build the project
-  Make sure you have GCC and Make installed.  
-  Then compile the program:
-  ```bash
-  make
-  ```
+---
 
-  ### 3️⃣ Run the simulation
-  ```bash
-  ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
-  ```
+## 🍽 The Problem
 
-  #### Example
-  ```bash
-  ./philo 5 800 200 200
-  ```
+- `N` philosophers sit at a round table; a fork lies between each pair.
+- A philosopher needs **both** adjacent forks to eat.
+- Between two philosophers there is only **one** fork — so two neighbours can
+  never eat at the same time.
+- Simulation stops when a philosopher **dies** (no meal in time) or, if the
+  optional argument is given, when everyone has eaten enough.
 
-  ➜ Runs a simulation with 5 philosophers who die if they don’t eat within 800 ms,  
-  take 200 ms to eat, and 200 ms to sleep.
+---
 
-  #### Example with required meal count
-  ```bash
-  ./philo 5 800 200 200 5
-  ```
-  ➜ The simulation stops when each philosopher has eaten 5 times.
+## 🚀 Getting Started
 
-  ---
+**Prerequisites**
 
-  ## 💬 Example Output
+- `gcc`, `make`
 
-  ```
-  0 1 is thinking
-  10 1 has taken a fork
-  12 1 has taken a fork
-  13 1 is eating
-  213 1 is sleeping
-  414 1 is thinking
-  601 3 died
-  ```
+**Build**
 
-  Each log entry includes:
-  - A **timestamp** (in milliseconds)
-  - The **philosopher ID**
-  - The **state**: taking a fork, eating, sleeping, thinking, or dying
+```sh
+git clone https://github.com/ifrankerem/Philosophers.git
+cd Philosophers
+make            # builds philo and philo_bonus
+```
 
-  ---
+---
 
-  ## 🧠 Understanding the Rules
+## 💻 Usage
 
-  - Each philosopher is represented by a **thread**.  
-  - Each fork is protected by a **mutex** to prevent simultaneous access.  
-  - The simulation stops when:
-    - A philosopher dies  
-    - (Optional) All philosophers have eaten the required number of times  
-  - All logs are **thread-safe** — no overlapping messages.  
-  - Death messages appear within 10 ms of the actual event.
+```sh
+./philo number_of_philosophers time_to_die time_to_eat time_to_sleep \
+       [number_of_times_each_philosopher_must_eat]
+```
 
-  ---
+| Argument | Meaning |
+|---|---|
+| `number_of_philosophers` | how many sit at the table |
+| `time_to_die` | ms a philosopher survives without eating |
+| `time_to_eat` | ms a meal takes |
+| `time_to_sleep` | ms a nap takes |
+| `[number_of_times_each_philosopher_must_eat]` | optional — simulation stops once reached |
 
-  ## 🌟 Bonus (Optional)
+**Example**
 
-  The bonus version (`philo_bonus`) uses **processes** and **semaphores** instead of threads and mutexes.
+```sh
+./philo 5 800 200 200
+./philo 5 800 200 200 5      # stops after everyone has eaten five times
+```
 
-  - Each philosopher becomes a **separate process**  
-  - Forks are managed through a shared semaphore  
-  - All philosophers can safely synchronize through IPC  
-  - No shared memory — everything relies on semaphores  
+---
 
-  ---
+## 📜 Output Format
 
-  ## 🔍 Example Visualization
+```text
+0 1 is thinking
+10 1 has taken a fork
+12 1 has taken a fork
+13 1 is eating
+213 1 is sleeping
+414 1 is thinking
+601 3 died
+```
 
-  ![Dining Philosophers Example](https://upload.wikimedia.org/wikipedia/commons/7/7b/An_illustration_of_the_dining_philosophers_problem.png)
+Each line: timestamp in milliseconds, philosopher id (starting at 1), and state.
 
-  *(Illustration: Five philosophers alternating between thinking, eating, and waiting for forks.)*
+---
 
-  ---
+## 🔧 Implementation
 
-  ## 💡 Learning Outcomes
+- Each philosopher is a **thread**; each fork is a **mutex**.
+- Fork acquisition is staggered by parity to break the deadlock cycle, and
+  locks are released in the same order they were taken.
+- Death is monitored by a dedicated scanner with its own timer.
+- Every state change writes through one print mutex, so lines never interleave.
+- Timing uses `gettimeofday` and a precision sleep helper rather than a bare
+  `usleep`, so death messages stay within the 10 ms tolerance.
 
-  - Mastering **thread creation** and synchronization (`pthread_create`, `pthread_mutex_*`)  
-  - Managing **concurrent access** to shared resources  
-  - Avoiding **deadlocks** and **race conditions**  
-  - Understanding **precise timing** with `gettimeofday()` and `usleep()`  
-  - Structuring thread-safe simulations  
+---
 
-  ---
+## 🎉 Bonus
 
-  ## 🎥 Project Demo
-  Check out the full video demonstration on YouTube 👇  
-  ▶️ [Watch on YouTube](https://www.youtube.com/watch?v=w3of0xvm7Ck)
+`philo_bonus` replaces threads and mutexes with **processes** and
+**semaphores**:
 
-  ---
-  ## 📜 License
+- Each philosopher is a forked process.
+- Every fork is a named semaphore.
+- Shared access goes through semaphore-protected semaphores alone.
+- All state lives in shared memory with no global variables outside the
+  program state struct.
 
-  This project is part of the **42 School curriculum** and created purely for educational purposes.  
-  You are free to read, learn, and experiment with it — but not to reuse for evaluation submissions.
+---
 
-  ---
+## 🧩 Game Loop Rules
 
-  🧑‍💻 *Developed by [@ifrankerem](https://github.com/ifankerem)*
+| Action | Rule |
+|---|---|
+| Eat | hold both forks, sleep for `time_to_eat`, release both |
+| Death | no meal for more than `time_to_die` |
+| Simulation ends | a death occurs, or the optional meal count is met |
+| Output order | chronological, all timestamps in milliseconds |
+
+---
+
+## 🧠 Learning Outcomes
+
+- Thread creation and join, and the lifecycle of a `pthread`.
+- Correct use of `pthread_mutex_*` to protect shared state.
+- Detecting and preventing deadlock and starvation.
+- Precise timing with `gettimeofday` and a tuned sleep.
+- Writing output paths that stay thread-safe under load.
+
+---
+
+## 🎓 Demo
+
+▶️ [Watch on YouTube](https://www.youtube.com/watch?v=w3of0xvm7Ck)
+
+---
+
+## 👤 Author
+
+**İrfan Kerem Arslan** — [@ifrankerem](https://github.com/ifrankerem)
+
+---
+
+## 📄 License
+
+Built for the **42 Common Core** curriculum. Shared for learning and portfolio
+purposes.
+
+---
+
+## 🙏 Acknowledgements
+
+- [awesome-readme](https://github.com/matiassingers/awesome-readme) — structure inspiration for this README
